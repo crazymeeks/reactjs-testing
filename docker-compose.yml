@@ -1,0 +1,23 @@
+version: "3.2"
+
+services:
+  testing.reactjs:
+    image: testing.reactjs:latest
+    container_name: testing.reactjs-172.28.0.57
+    volumes:
+       - ./:/var/www/testing.reactjs
+       - /var/www/testing.reactjs/app/node_modules
+    networks:
+      default:
+        ipv4_address: 172.28.0.57
+    tty: true
+    stdin_open: true
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    dns:
+      - 8.8.8.8
+networks:
+  default:
+      name: devnetwork
+      external: true
