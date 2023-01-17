@@ -1,33 +1,29 @@
-import {render, screen} from '@testing-library/react';
-import userEvent from '@testing-library/user-event'
-import Greeting from "./Greetings";
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import Greeting from './Greetings';
+
+test('renders Submitted Report when page is loaded', () => {
+    // Arrange
+    render(<Greeting/>);
+
+    // Assert
+    const elem = screen.getByText(/Submitted Reports/i);
+
+    expect(elem).toBeInTheDocument();
+});
 
 
-describe('Greeting Component', () => {
-    test('renders Hello World as a text', () => {
-        render(<Greeting/>);
-    
-        const elem = screen.getByText(/hello world!/i);
-    
-        expect(elem).toBeInTheDocument();
-    });
-    
-    test('render change text when button is not clicked', () => {
-        render(<Greeting/>);
-        const elem = screen.getByText(/good to see you/i);
-        expect(elem).toBeInTheDocument();
+test('renders Valid Report when button is clicked', () => {
+   
+    render(<Greeting/>);
 
-    });
+    // Act
+    const buttonElement = screen.getByRole('button');
+    userEvent.click(buttonElement);
 
-    test('render change text when button is clicked', () => {
-        render(<Greeting/>);
-
-        const buttonElement = screen.getByRole('button');
-        userEvent.click(buttonElement);
-
-        const elem = screen.getByText(/changed/i);
-        expect(elem).toBeInTheDocument();
-
-    });
+    // Assert
+    const elem = screen.getByText(/Valid Reports/i);
+    expect(elem).toBeInTheDocument();
 
 });
